@@ -24,5 +24,6 @@ Fusion Enhancements is a Balatro mod that allows you to simultaneously have all 
 - Trying to add a vanilla enhancement onto a modded enhanced card will cause the modded enhancement to be replaced by the vanilla one.
 # To do list for upcoming updates
 - Add compatibility for the CardSleeves mod.
+- Consider polishing the deck sprite.
 # Feedback
 If you have anything to say about your experience, you may do so in the discord post [here](https://discord.com/channels/1116389027176787968/1541912473312174192).
