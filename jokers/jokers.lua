@@ -9,7 +9,7 @@ SMODS.Joker:take_ownership('vampire',
                 local enhanced = {}
                 for _, scored_card in ipairs(context.scoring_hand) do
                     if next(SMODS.get_enhancements(scored_card)) and not scored_card.debuff and not scored_card.vampired then
-                        if next(SMODS.get_enhancements(scored_card)):find("recenh") then
+                        if next(SMODS.get_enhancements(scored_card)):find("fusenh") then
                             for _, i in ipairs(card.ability.extra.enhancements) do
                                 if next(SMODS.get_enhancements(scored_card)):find(i) then
                                     enhanced[#enhanced + 1] = true
@@ -31,11 +31,14 @@ SMODS.Joker:take_ownership('vampire',
                 end
                 if #enhanced > 0 then
                     card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain * #enhanced
-                        return
-                            {
-                                message = localize { type = 'variable', key = 'a_xmult_plus', vars = { #enhanced / 10 } },
-                                colour = G.C.MULT,
-                            }
+                    local msg = {}
+                    local num = 0
+                    for i, _ in pairs(enhanced) do
+                        num = num + 1
+                        table.insert(msg, { message = localize { type = 'variable', key = 'a_xmult', vars = { num / 10 } }, colour = G.C.MULT, delay = 0.5 })
+                    end
+                    table.insert(msg, { message = localize { type = 'variable', key = 'a_xmult_plus', vars = { num / 10 } }, colour = G.C.MULT, delay = 2 })
+                    return SMODS.merge_effects(msg)
                 end
             end
             if context.joker_main then
@@ -57,11 +60,11 @@ SMODS.Joker:take_ownership('midas_mask',
                         local card_id = scored_card.config.center_key
                         local variant = "gold"
                         local temp = {}
-                        local enh_id = "m_recenh_"
+                        local enh_id = "m_fusenh_"
                         for _, j in ipairs(enhancements) do
                             if (card_id:find(j) or j == variant) then
                                 temp[#temp + 1] = j
-                                if enh_id == "m_recenh_" then
+                                if enh_id == "m_fusenh_" then
                                     enh_id = enh_id .. j
                                 else
                                     enh_id = enh_id .. "X" .. j
@@ -82,7 +85,7 @@ SMODS.Joker:take_ownership('midas_mask',
                         }))
                     end
                 end
-                if faces > 0 then
+                if faces > 0 and #temp > 0 then
                     return {
                         message = localize('k_gold'),
                         colour = G.C.MONEY
@@ -108,7 +111,7 @@ SMODS.Joker:take_ownership('drivers_license',
             for _, playing_card in pairs(G.playing_cards or {}) do
                 if next(SMODS.get_enhancements(playing_card)) then
                     enh_id = next(SMODS.get_enhancements(playing_card))
-                    if enh_id:find("m_recenh_") then
+                    if enh_id:find("m_fusenh_") then
                         for _, enhancement in pairs(self.config.extra.enhancements) do
                             if enh_id:find(enhancement) then driver_tally = driver_tally + 1 end
                         end
@@ -126,7 +129,7 @@ SMODS.Joker:take_ownership('drivers_license',
                 for _, playing_card in pairs(G.playing_cards or {}) do
                     if next(SMODS.get_enhancements(playing_card)) then
                         enh_id = next(SMODS.get_enhancements(playing_card))
-                        if enh_id:find("m_recenh_") then
+                        if enh_id:find("m_fusenh_") then
                             for _, enhancement in pairs(self.config.extra.enhancements) do
                                 if enh_id:find(enhancement) then driver_tally = driver_tally + 1 end
                             end
@@ -152,7 +155,7 @@ SMODS.Joker:take_ownership('drivers_license',
                 for _, playing_card in ipairs(G.playing_cards or {}) do
                     if next(SMODS.get_enhancements(playing_card)) then
                         enh_id = next(SMODS.get_enhancements(playing_card))
-                        if enh_id:find("m_recenh_") then
+                        if enh_id:find("m_fusenh_") then
                             for _, enhancement in pairs(self.config.extra.enhancements) do
                                 if enh_id:find(enhancement) then driver_tally = driver_tally + 1 end
                             end

@@ -1,0 +1,11 @@
+{
+  "id": "fusionenhancements",
+  "name": "Fusion Enhancements",
+  "author": ["Sparklz"],
+  "description": "Allows vanilla enhancements to coexist on playing cards.",
+  "prefix": "fusenh",
+  "main_file": "Fusion-Enhancement.lua",
+  "badge_colour": "ffffff",
+  "badge_text_colour": "ff9a00",
+  "version": "2.0.0"
+}

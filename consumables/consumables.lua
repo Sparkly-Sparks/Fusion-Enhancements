@@ -3,19 +3,40 @@ SMODS.Atlas {
     path = "Tarots.png",
     px = 71, py = 95,
 }
+
+SMODS.Atlas {
+    key = "consumable_e",
+    path = "Tarots_E.png",
+    px = 71, py = 95,
+}
+
 SMODS.Consumable:take_ownership('heirophant',
     {
         atlas = "consumable",
         pos = { x = 2, y = 0 },
         config = { max_highlighted = 2, mod_conv = "m_bonus", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -45,11 +66,11 @@ SMODS.Consumable:take_ownership('heirophant',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -94,7 +115,11 @@ SMODS.Consumable:take_ownership('heirophant',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -103,14 +128,28 @@ SMODS.Consumable:take_ownership('empress',
         atlas = "consumable",
         pos = { x = 1, y = 0 },
         config = { max_highlighted = 2, mod_conv = "m_mult", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -140,11 +179,11 @@ SMODS.Consumable:take_ownership('empress',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -189,7 +228,11 @@ SMODS.Consumable:take_ownership('empress',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -198,14 +241,28 @@ SMODS.Consumable:take_ownership('lovers',
         atlas = "consumable",
         pos = { x = 3, y = 0 },
         config = { max_highlighted = 1, mod_conv = "m_wild", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -235,11 +292,11 @@ SMODS.Consumable:take_ownership('lovers',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -284,7 +341,11 @@ SMODS.Consumable:take_ownership('lovers',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -293,14 +354,28 @@ SMODS.Consumable:take_ownership('justice',
         atlas = "consumable",
         pos = { x = 1, y = 1 },
         config = { max_highlighted = 1, mod_conv = "m_glass", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -330,11 +405,11 @@ SMODS.Consumable:take_ownership('justice',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -379,7 +454,11 @@ SMODS.Consumable:take_ownership('justice',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -388,14 +467,28 @@ SMODS.Consumable:take_ownership('chariot',
         atlas = "consumable",
         pos = { x = 0, y = 1 },
         config = { max_highlighted = 1, mod_conv = "m_steel", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -425,11 +518,11 @@ SMODS.Consumable:take_ownership('chariot',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -474,7 +567,11 @@ SMODS.Consumable:take_ownership('chariot',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -483,14 +580,28 @@ SMODS.Consumable:take_ownership('tower',
         atlas = "consumable",
         pos = { x = 3, y = 1 },
         config = { max_highlighted = 1, mod_conv = "m_stone", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -520,11 +631,11 @@ SMODS.Consumable:take_ownership('tower',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -569,7 +680,11 @@ SMODS.Consumable:take_ownership('tower',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -578,14 +693,28 @@ SMODS.Consumable:take_ownership('devil',
         atlas = "consumable",
         pos = { x = 2, y = 1 },
         config = { max_highlighted = 1, mod_conv = "m_gold", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -615,11 +744,11 @@ SMODS.Consumable:take_ownership('devil',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -664,7 +793,11 @@ SMODS.Consumable:take_ownership('devil',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
@@ -673,14 +806,28 @@ SMODS.Consumable:take_ownership('magician',
         atlas = "consumable",
         pos = { x = 0, y = 0 },
         config = { max_highlighted = 2, mod_conv = "m_lucky", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
+        set_sprites = function(self, card, front)
+            if G.GAME.selected_back_key then
+                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    card.children.center.atlas.name = "fusenh_consumable_e"
+                    card.children.center.atlas.key = "fusenh_consumable_e"
+                    card.children.center.atlas.path = "Tarots_E.png"
+                    card.children.center:reset()
+                end
+            end
+        end,
         loc_vars = function(self, info_queue, card)
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             local plural = { "" , "" }
-            if card.ability.max_highlighted ~= 1 then
+            if selected > 1 then
                 plural[1] = "up to "
                 plural[2] = "s"
             end
-        return { vars = { card.ability.max_highlighted, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_recenh_") }, plural[1], plural[2] } }
+        return { vars = { selected, localize { type = 'name_text', set = 'Enhanced', key = card.ability.mod_conv:gsub("m_","m_fusenh_") }, plural[1], plural[2] } }
         end,
         use = function(self, card, area, copier)
             G.E_MANAGER:add_event(Event({
@@ -710,11 +857,11 @@ SMODS.Consumable:take_ownership('magician',
                 local card_id = G.hand.highlighted[i].config.center_key
                 local variant = card.ability.mod_conv:gsub("m_", "")
                 local temp = {}
-                local enh_id = "m_recenh_"
+                local enh_id = "m_fusenh_"
                 for _, j in ipairs(card.ability.extra.enhancements) do
                     if (card_id:find(j) and j ~= variant) or (not card_id:find(j) and j == variant) then
                         temp[#temp + 1] = j
-                        if enh_id == "m_recenh_" then
+                        if enh_id == "m_fusenh_" then
                             enh_id = enh_id .. j
                         else
                             enh_id = enh_id .. "X" .. j
@@ -759,7 +906,11 @@ SMODS.Consumable:take_ownership('magician',
             delay(0.5)
         end,
         can_use = function(self, card)
-            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.max_highlighted
+            local selected = card.ability.max_highlighted
+            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+            end
+            return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
     }
 )
