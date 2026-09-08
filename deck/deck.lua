@@ -27,7 +27,7 @@ SMODS.Back {
         unlock = {
             "Have a single card",
             "with {C:attention}8 Enhancements{}",
-            "in deck",
+            "in your deck",
         }
     },
     check_for_unlock = function(self, args)
