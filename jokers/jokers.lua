@@ -85,7 +85,7 @@ SMODS.Joker:take_ownership('midas_mask',
                         }))
                     end
                 end
-                if faces > 0 and #temp > 0 then
+                if faces > 0 then
                     return {
                         message = localize('k_gold'),
                         colour = G.C.MONEY
