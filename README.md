@@ -12,7 +12,7 @@ Fusion Enhancements is a Balatro mod that allows you to simultaneously have all 
 - Adds 247 new enhancements. (Every combination of the eight default enhancements.)
 - Enhancement tarot cards can now add or remove their respective enhancements from selected cards.
 ![Tarot](assets/2x/Tarots.png)
-- Adds an enhancement tarot card themed deck.
+- Adds an enhancement tarot card focused deck.
 ![Deck](assets/Demo/deck.png)
 - Adds a [CardSleeve](https://github.com/larswijn/CardSleeves) for the deck.
 # Specifics on gameplay functionality
