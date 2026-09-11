@@ -17,7 +17,7 @@ SMODS.Consumable:take_ownership('heirophant',
         config = { max_highlighted = 2, mod_conv = "m_bonus", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -29,8 +29,15 @@ SMODS.Consumable:take_ownership('heirophant',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -116,8 +123,15 @@ SMODS.Consumable:take_ownership('heirophant',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -130,7 +144,7 @@ SMODS.Consumable:take_ownership('empress',
         config = { max_highlighted = 2, mod_conv = "m_mult", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -142,8 +156,15 @@ SMODS.Consumable:take_ownership('empress',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -229,8 +250,15 @@ SMODS.Consumable:take_ownership('empress',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -243,7 +271,7 @@ SMODS.Consumable:take_ownership('lovers',
         config = { max_highlighted = 1, mod_conv = "m_wild", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -255,8 +283,15 @@ SMODS.Consumable:take_ownership('lovers',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -342,8 +377,15 @@ SMODS.Consumable:take_ownership('lovers',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -356,7 +398,7 @@ SMODS.Consumable:take_ownership('justice',
         config = { max_highlighted = 1, mod_conv = "m_glass", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -368,8 +410,15 @@ SMODS.Consumable:take_ownership('justice',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -455,8 +504,15 @@ SMODS.Consumable:take_ownership('justice',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -469,7 +525,7 @@ SMODS.Consumable:take_ownership('chariot',
         config = { max_highlighted = 1, mod_conv = "m_steel", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -481,8 +537,15 @@ SMODS.Consumable:take_ownership('chariot',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -568,8 +631,15 @@ SMODS.Consumable:take_ownership('chariot',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -582,7 +652,7 @@ SMODS.Consumable:take_ownership('tower',
         config = { max_highlighted = 1, mod_conv = "m_stone", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -594,8 +664,15 @@ SMODS.Consumable:take_ownership('tower',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -681,8 +758,15 @@ SMODS.Consumable:take_ownership('tower',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -695,7 +779,7 @@ SMODS.Consumable:take_ownership('devil',
         config = { max_highlighted = 1, mod_conv = "m_gold", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -707,8 +791,15 @@ SMODS.Consumable:take_ownership('devil',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -794,8 +885,15 @@ SMODS.Consumable:take_ownership('devil',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end
@@ -808,7 +906,7 @@ SMODS.Consumable:take_ownership('magician',
         config = { max_highlighted = 2, mod_conv = "m_lucky", extra = { enhancements = { "bonus", "mult", "wild", "glass", "steel", "stone", "gold", "lucky" } } },
         set_sprites = function(self, card, front)
             if G.GAME.selected_back_key then
-                if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                if (G.GAME.selected_back_key.key == "b_fusenh_overconsumption") or (CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption") then
                     card.children.center.atlas.name = "fusenh_consumable_e"
                     card.children.center.atlas.key = "fusenh_consumable_e"
                     card.children.center.atlas.path = "Tarots_E.png"
@@ -820,8 +918,15 @@ SMODS.Consumable:take_ownership('magician',
             info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
             local selected = card.ability.max_highlighted
             if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+                selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
                     selected = card.ability.max_highlighted * 2
                 end
+            end
             local plural = { "" , "" }
             if selected > 1 then
                 plural[1] = "up to "
@@ -907,8 +1012,15 @@ SMODS.Consumable:take_ownership('magician',
         end,
         can_use = function(self, card)
             local selected = card.ability.max_highlighted
-            if G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
+            if G.GAME.selected_back_key and G.GAME.selected_back_key.key == "b_fusenh_overconsumption" then
                 selected = card.ability.max_highlighted * 2
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = 5
+                end
+            else
+                if CardSleeves and G.GAME.selected_sleeve == "sleeve_fusenh_overconsumption" then
+                    selected = card.ability.max_highlighted * 2
+                end
             end
             return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= selected
         end

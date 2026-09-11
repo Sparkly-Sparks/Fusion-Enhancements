@@ -20,8 +20,7 @@ for i in files:
         image=image.load()
         for x in range(size[0]):
             for y in range(size[1]):
-                pixels[x*2,y*2]=image[x,y]
-                pixels[x*2+1,y*2]=image[x,y]
-                pixels[x*2,y*2+1]=image[x,y]
-                pixels[x*2+1,y*2+1]=image[x,y]
+                for a in range(2):
+                    for b in range(2):
+                        pixels[x*2+a,y*2+b]=image[x,y]
         enhanced.save("2x/"+i)

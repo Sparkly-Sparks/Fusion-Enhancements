@@ -14,9 +14,9 @@ SMODS.Back {
     loc_txt = {
         name = "Overconsumption Deck",
         text = {
-            "{C:attention}Enhancement{} {C:tarot}tarot cards{} can {C:attention}enhance{}",
-            "{X:attention,C:white}X2{} as many cards at a time",
-            --"{C:inactive}(Max of {C:money}5{C:inactive})",
+            "{C:attention}Enhancement{} {C:tarot}tarot cards{}",
+            "can {C:attention}enhance{} {X:attention,C:white}X2{} as many",
+            "cards at a time",
             " ",
             "{C:red}-1{} {C:dark_edition}Joker slot{}",
             "{C:blue}+2{} {C:attention}Consumable slots{}",

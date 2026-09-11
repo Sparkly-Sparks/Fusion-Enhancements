@@ -1,0 +1,8 @@
+assert(SMODS.load_file("consumables/consumables.lua"))()
+assert(SMODS.load_file("deck/deck.lua"))()
+assert(SMODS.load_file("deck/sleeve/sleeve.lua"))()
+assert(SMODS.load_file("enhancements/enhancements.lua"))()
+assert(SMODS.load_file("hooks/hooks.lua"))()
+assert(SMODS.load_file("icon.lua"))()
+assert(SMODS.load_file("jokers/jokers.lua"))()
+assert(SMODS.current_mod.lovely)
