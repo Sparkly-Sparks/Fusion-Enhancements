@@ -1,1 +1,4 @@
-assets/Demo export-ignore
+.gitattributes export-ignore
+assets/Demo/ export-ignore
+assets/Elements/ export-ignore
+dev_tools/ export-ignore
