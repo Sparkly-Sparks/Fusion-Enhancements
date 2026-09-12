@@ -28,7 +28,7 @@ if CardSleeves then
                 end
             else
                 key = self.key
-                self.config = { joker_slot = -1, hand_size = -1, hands = -1, discards = 1, consumable_slot = 2 }
+                self.config = { joker_slot = -1, hands = -1, discards = 1, consumable_slot = 2 }
             end
             return { key = key, vars = vars }
         end,

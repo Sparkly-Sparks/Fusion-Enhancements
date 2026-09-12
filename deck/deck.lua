@@ -9,7 +9,7 @@ SMODS.Back {
     key = "overconsumption",
     atlas = "fusion_deck",
     pos = { x = 0, y = 0 },
-    config = { joker_slot = -1, hand_size = -1, hands = -1, discards = 1, consumable_slot = 2 },
+    config = { joker_slot = -1, hands = -1, discards = 1, consumable_slot = 2 },
     unlocked = false,
     loc_txt = {
         name = "Overconsumption Deck",
@@ -20,7 +20,6 @@ SMODS.Back {
             " ",
             "{C:red}-1{} {C:dark_edition}Joker slot{}",
             "{C:blue}+2{} {C:attention}Consumable slots{}",
-            "{C:red}-1{} {C:blue}Hand size{}",
             "{C:red}-1{} {C:blue}Hand{} {C:attention}per{} round",
             "{C:blue}+1{} {C:red}Discard{} {C:attention}per{} round",
         },
